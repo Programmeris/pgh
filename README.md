@@ -1,6 +1,6 @@
 # pgh
 SImple Python utility for interactive with PostgreSQL
 
-#Installation
+# Installation
 
-#User guide
+# User guide
