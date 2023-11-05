@@ -9,6 +9,9 @@ func main() {
 
 func initCommandFlags()  {
 	pghCmd.PersistentFlags().StringP("hostname", "a", "localhost", "")
+	pghCmd.PersistentFlags().StringP("port", "p", "5432", "")
+	pghCmd.PersistentFlags().StringP("username", "U", "", "")
+	pghCmd.PersistentFlags().StringP("password", "P", "", "")
 
 	getCmd.AddCommand(tablesCmd)
 	pghCmd.AddCommand(getCmd)
