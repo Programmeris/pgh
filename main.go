@@ -1,13 +1,17 @@
-package pgh
+package main
 
 import "github.com/spf13/cobra"
 
 func main() {
-	
+	initCommandFlags()
+	pghCmd.Execute()
 }
 
 func initCommandFlags()  {
-	
+	pghCmd.PersistentFlags().StringP("hostname", "a", "localhost", "")
+
+	getCmd.AddCommand(tablesCmd)
+	pghCmd.AddCommand(getCmd)
 }
 
 var pghCmd = &cobra.Command{
