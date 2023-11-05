@@ -23,6 +23,7 @@ func initCommandFlags()  {
 	getCmd.AddCommand(tablesCmd)
 	getCmd.AddCommand(indexCmd)
 	getCmd.AddCommand(viewsCmd)
+	getCmd.AddCommand(locksCmd)
 	getCmd.AddCommand(seqCmd)
 	pghCmd.AddCommand(getCmd)
 }
@@ -174,6 +175,35 @@ var matViewsCmd = &cobra.Command{
 		}
 
 		tables, err := db.Query("SELECT * FROM pg_catalog.pg_matviews")
+
+		if err != nil {
+			panic(err)
+		}
+
+		for tables.Next() {
+			var name string
+			if err := tables.Scan(&name); err != nil {
+				panic(err)
+			}
+			fmt.Printf("this is something: %s\n", name)
+		}
+
+	},
+}
+
+var locksCmd = &cobra.Command{
+	Use:   "locks",
+	Run: func(cmd *cobra.Command, args []string) {
+		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		db, err := sql.Open("postgres", connString)
+
+		defer db.Close()
+
+		if err != nil {
+			panic(err)
+		}
+
+		tables, err := db.Query("SELECT * FROM pg_catalog.pg_locks")
 
 		if err != nil {
 			panic(err)
