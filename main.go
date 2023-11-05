@@ -20,6 +20,7 @@ func initCommandFlags()  {
 	pghCmd.PersistentFlags().StringVar(&database, "d", "", "")
 
 	getCmd.AddCommand(tablesCmd)
+	getCmd.AddCommand(indexCmd)
 	getCmd.AddCommand(seqCmd)
 	pghCmd.AddCommand(getCmd)
 }
@@ -84,6 +85,35 @@ var seqCmd = &cobra.Command{
 		}
 
 		tables, err := db.Query("SELECT * FROM pg_catalog.pg_sequences")
+
+		if err != nil {
+			panic(err)
+		}
+
+		for tables.Next() {
+			var name string
+			if err := tables.Scan(&name); err != nil {
+				panic(err)
+			}
+			fmt.Printf("this is something: %s\n", name)
+		}
+
+	},
+}
+
+var indexCmd = &cobra.Command{
+	Use:   "indexes",
+	Run: func(cmd *cobra.Command, args []string) {
+		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		db, err := sql.Open("postgres", connString)
+
+		defer db.Close()
+
+		if err != nil {
+			panic(err)
+		}
+
+		tables, err := db.Query("SELECT * FROM pg_catalog.pg_indexes")
 
 		if err != nil {
 			panic(err)
