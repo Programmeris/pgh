@@ -28,5 +28,5 @@ var getCmd = &cobra.Command{
 }
 
 var tablesCmd = &cobra.Command{
-	Use:   "pgh",
+	Use:   "tables",
 }
