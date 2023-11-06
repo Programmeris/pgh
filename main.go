@@ -19,6 +19,7 @@ func initCommandFlags()  {
 	pghCmd.PersistentFlags().StringVar(&password, "P", "", "")
 	pghCmd.PersistentFlags().StringVar(&database, "d", "", "")
 
+	topCmd.AddCommand(topQueriesCmd)
 	getCmd.AddCommand(matViewsCmd)
 	getCmd.AddCommand(tablesCmd)
 	getCmd.AddCommand(indexCmd)
@@ -26,6 +27,7 @@ func initCommandFlags()  {
 	getCmd.AddCommand(locksCmd)
 	getCmd.AddCommand(seqCmd)
 	pghCmd.AddCommand(getCmd)
+	pghCmd.AddCommand(topCmd)
 }
 
 var ( 
@@ -44,6 +46,39 @@ var pghCmd = &cobra.Command{
 
 var getCmd = &cobra.Command{
 	Use:   "get",
+}
+
+var topCmd = &cobra.Command{
+	Use:   "top",
+}
+
+var topQueriesCmd = &cobra.Command{
+	Use:   "queries",
+	Run: func(cmd *cobra.Command, args []string) {
+		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		db, err := sql.Open("postgres", connString)
+
+		defer db.Close()
+
+		if err != nil {
+			panic(err)
+		}
+
+		slowQueries, err := db.Query("SELECT * FROM pg_stat_statements JOIN pg_roles r ON r.oid = userid WHERE calls > 100 ORDER BY mean_time DESC")
+
+		if err != nil {
+			panic(err)
+		}
+
+		for slowQueries.Next() {
+			var name string
+			if err := slowQueries.Scan(&name); err != nil {
+				panic(err)
+			}
+			fmt.Printf("this is something: %s\n", name)
+		}
+
+	},
 }
 
 var tablesCmd = &cobra.Command{
