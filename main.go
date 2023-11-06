@@ -8,11 +8,11 @@ import (
 )
 
 func main() {
-	initCommandFlags()
+	initCommands()
 	pghCmd.Execute()
 }
 
-func initCommandFlags()  {
+func initCommands()  {
 	pghCmd.PersistentFlags().StringVar(&hostname, "a", "localhost", "")
 	pghCmd.PersistentFlags().StringVar(&port, "p", "5432", "")
 	pghCmd.PersistentFlags().StringVar(&username, "U", "", "")
