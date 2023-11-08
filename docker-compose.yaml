@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  postgresql:
+    image: timescale/timescaledb:2.5.0-pg14-bitnami
+    container_name: postgresql
+    ports:
+      - 5438:5432
+    environment:
+      POSTGRESQL_USERNAME: test
+      POSTGRESQL_PASSWORD: test
+      POSTGRESQL_DATABASE: test
