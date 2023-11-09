@@ -157,18 +157,21 @@ var indexCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT * FROM pg_catalog.pg_indexes")
+		tables, err := db.Query("SELECT indexname FROM pg_catalog.pg_indexes")
 
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Printf("Indexes list: \n")
+		fmt.Printf("--------------------- \n")
 
 		for tables.Next() {
 			var name string
 			if err := tables.Scan(&name); err != nil {
 				panic(err)
 			}
-			fmt.Printf("this is something: %s\n", name)
+			fmt.Printf("%s\n", name)
 		}
 
 	},
@@ -260,3 +263,4 @@ var locksCmd = &cobra.Command{
 
 	},
 }
+
