@@ -93,18 +93,21 @@ var tablesCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT * FROM pg_catalog.pg_tables")
+		tables, err := db.Query("SELECT tablename FROM pg_catalog.pg_tables")
 
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Printf("Tables list: \n")
+		fmt.Printf("--------------------- \n")
 
 		for tables.Next() {
 			var name string
 			if err := tables.Scan(&name); err != nil {
 				panic(err)
 			}
-			fmt.Printf("this is something: %s\n", name)
+			fmt.Printf("%s\n", name)
 		}
 
 	},
