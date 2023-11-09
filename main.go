@@ -125,18 +125,21 @@ var seqCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT * FROM pg_catalog.pg_sequences")
+		tables, err := db.Query("SELECT sequencename FROM pg_catalog.pg_sequences")
 
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Printf("Sequences list: \n")
+		fmt.Printf("--------------------- \n")
 
 		for tables.Next() {
 			var name string
 			if err := tables.Scan(&name); err != nil {
 				panic(err)
 			}
-			fmt.Printf("this is something: %s\n", name)
+			fmt.Printf("%s\n", name)
 		}
 
 	},
