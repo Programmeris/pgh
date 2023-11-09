@@ -55,7 +55,7 @@ var topCmd = &cobra.Command{
 var topQueriesCmd = &cobra.Command{
 	Use:   "queries",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
@@ -84,7 +84,7 @@ var topQueriesCmd = &cobra.Command{
 var tablesCmd = &cobra.Command{
 	Use:   "tables",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
@@ -113,7 +113,7 @@ var tablesCmd = &cobra.Command{
 var seqCmd = &cobra.Command{
 	Use:   "sequences",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
@@ -142,7 +142,7 @@ var seqCmd = &cobra.Command{
 var indexCmd = &cobra.Command{
 	Use:   "indexes",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
@@ -171,7 +171,7 @@ var indexCmd = &cobra.Command{
 var viewsCmd = &cobra.Command{
 	Use:   "views",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
@@ -200,7 +200,7 @@ var viewsCmd = &cobra.Command{
 var matViewsCmd = &cobra.Command{
 	Use:   "matviews",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
@@ -229,7 +229,7 @@ var matViewsCmd = &cobra.Command{
 var locksCmd = &cobra.Command{
 	Use:   "locks",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
 		defer db.Close()
