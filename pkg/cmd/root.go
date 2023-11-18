@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 	_ "github.com/lib/pq"
+	"fmt"
 )
 
 var ( 
@@ -38,3 +39,9 @@ func init(){
 	pghCmd.AddCommand(topCmd)
 
 }
+
+func Execute() {
+	if err := pghCmd.Execute(); err != nil {
+	  fmt.Println(err)
+	}
+  }
