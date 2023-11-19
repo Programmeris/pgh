@@ -25,7 +25,7 @@ func getRowsFromDb(hostname string, port string, username string, password strin
 	return rows
 }
 
-func printRows(rows *sql.Rows, title string){
+func PrintRows(rows *sql.Rows, title string){
 
 	fmt.Printf(title + " list: \n")
 	fmt.Printf("--------------------- \n")
