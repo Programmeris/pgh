@@ -23,3 +23,7 @@ func getRowsFromDb(hostname string, port string, username string, password strin
 
 	return rows
 }
+
+func printRows(){
+	
+}
