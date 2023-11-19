@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"database/sql"
+	"pgh/pkg/util"
 	_ "github.com/lib/pq"
-	"fmt"
+	"github.com/spf13/cobra"
 )
 
 var topCmd = &cobra.Command{
@@ -29,13 +29,7 @@ var topQueriesCmd = &cobra.Command{
 			panic(err)
 		}
 
-		for slowQueries.Next() {
-			var name string
-			if err := slowQueries.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("this is something: %s\n", name)
-		}
+		util.PrintRows(slowQueries, "Slow Queries")
 
 	},
 }

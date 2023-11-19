@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"database/sql"
+	"pgh/pkg/util"
 	_ "github.com/lib/pq"
-	"fmt"
+	"github.com/spf13/cobra"
 )
 
 var getCmd = &cobra.Command{
@@ -29,16 +29,7 @@ var tablesCmd = &cobra.Command{
 			panic(err)
 		}
 
-		fmt.Printf("Tables list: \n")
-		fmt.Printf("--------------------- \n")
-
-		for tables.Next() {
-			var name string
-			if err := tables.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("%s\n", name)
-		}
+		util.PrintRows(tables, "Tables")
 
 	},
 }
@@ -55,22 +46,13 @@ var seqCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT sequencename FROM pg_catalog.pg_sequences")
+		sequences, err := db.Query("SELECT sequencename FROM pg_catalog.pg_sequences")
 
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Sequences list: \n")
-		fmt.Printf("--------------------- \n")
-
-		for tables.Next() {
-			var name string
-			if err := tables.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("%s\n", name)
-		}
+		util.PrintRows(sequences, "Sequences")
 
 	},
 }
@@ -87,22 +69,13 @@ var indexCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT indexname FROM pg_catalog.pg_indexes")
+		indexes, err := db.Query("SELECT indexname FROM pg_catalog.pg_indexes")
 
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Indexes list: \n")
-		fmt.Printf("--------------------- \n")
-
-		for tables.Next() {
-			var name string
-			if err := tables.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("%s\n", name)
-		}
+		util.PrintRows(indexes, "Indexes")
 
 	},
 }
@@ -119,22 +92,13 @@ var viewsCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT viewname FROM pg_catalog.pg_views")
+		views, err := db.Query("SELECT viewname FROM pg_catalog.pg_views")
 
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Views list: \n")
-		fmt.Printf("--------------------- \n")
-
-		for tables.Next() {
-			var name string
-			if err := tables.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("%s\n", name)
-		}
+		util.PrintRows(views, "Views")
 
 	},
 }
@@ -151,22 +115,13 @@ var matViewsCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT matviewname FROM pg_catalog.pg_matviews")
+		matviews, err := db.Query("SELECT matviewname FROM pg_catalog.pg_matviews")
 
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Materialized views list: \n")
-		fmt.Printf("--------------------------- \n")
-
-		for tables.Next() {
-			var name string
-			if err := tables.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("%s\n", name)
-		}
+		util.PrintRows(matviews, "Materialized views")
 
 	},
 }
@@ -183,22 +138,13 @@ var locksCmd = &cobra.Command{
 			panic(err)
 		}
 
-		tables, err := db.Query("SELECT locktype FROM pg_catalog.pg_locks")
+		locks, err := db.Query("SELECT locktype FROM pg_catalog.pg_locks")
 
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Locks list: \n")
-		fmt.Printf("------------ \n")
-
-		for tables.Next() {
-			var name string
-			if err := tables.Scan(&name); err != nil {
-				panic(err)
-			}
-			fmt.Printf("%s\n", name)
-		}
+		util.PrintRows(locks, "Locks")
 
 	},
 }
