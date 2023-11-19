@@ -5,7 +5,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func getRowsFromDb(hostname string, port string, username string, password string, database string) *sql.Rows  {
+func getRowsFromDb(hostname string, port string, username string, password string, database string, columns string, table string) *sql.Rows  {
 	var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 	db, err := sql.Open("postgres", connString)
 
@@ -15,7 +15,7 @@ func getRowsFromDb(hostname string, port string, username string, password strin
 		panic(err)
 	}
 
-	rows, err := db.Query("SELECT tablename FROM pg_catalog.pg_tables")
+	rows, err := db.Query("SELECT" + columns + " FROM " + table)
 
 	if err != nil {
 		panic(err)
