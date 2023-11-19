@@ -14,8 +14,16 @@ type ConnectionOptions struct{
 	database string
 }
 
-func NewConnectionOptions()  {
-	
+func NewConnectionOptions(hostname string, port string, username string, password string, database string) *ConnectionOptions {
+	connectionOptions := new(ConnectionOptions)
+	connectionOptions.hostname = hostname
+	connectionOptions.database = database
+	connectionOptions.username = username
+	connectionOptions.password = password
+	connectionOptions.port = port
+
+	return connectionOptions
+
 }
 
 func GetRowsFromTable(hostname string, port string, username string, password string, database string, columns string, table string) *sql.Rows  {
