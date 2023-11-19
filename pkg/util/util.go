@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func getRowsFromDb(hostname string, port string, username string, password string, database string, columns string, table string) *sql.Rows  {
+func GetRowsFromTable(hostname string, port string, username string, password string, database string, columns string, table string) *sql.Rows  {
 	var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 	db, err := sql.Open("postgres", connString)
 
