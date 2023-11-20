@@ -14,20 +14,8 @@ var getCmd = &cobra.Command{
 var tablesCmd = &cobra.Command{
 	Use:   "tables",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
-		db, err := sql.Open("postgres", connString)
-
-		defer db.Close()
-
-		if err != nil {
-			panic(err)
-		}
-
-		tables, err := db.Query("SELECT tablename FROM pg_catalog.pg_tables")
-
-		if err != nil {
-			panic(err)
-		}
+		var connectionOptions = util.NewConnectionOptions(hostname, port, username, password, database)
+		var tables = util.GetRowsFromTable(*connectionOptions, "tablename", "pg_catalog.pg_tables")
 
 		util.PrintRows(tables, "Tables")
 
