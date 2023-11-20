@@ -36,20 +36,8 @@ var seqCmd = &cobra.Command{
 var indexCmd = &cobra.Command{
 	Use:   "indexes",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
-		db, err := sql.Open("postgres", connString)
-
-		defer db.Close()
-
-		if err != nil {
-			panic(err)
-		}
-
-		indexes, err := db.Query("SELECT indexname FROM pg_catalog.pg_indexes")
-
-		if err != nil {
-			panic(err)
-		}
+		var connectionOptions = util.NewConnectionOptions(hostname, port, username, password, database)
+		var indexes = util.GetRowsFromTable(*connectionOptions, "indexname", "pg_catalog.pg_indexes")
 
 		util.PrintRows(indexes, "Indexes")
 
