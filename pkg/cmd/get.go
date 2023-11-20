@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"database/sql"
 	"pgh/pkg/util"
 	_ "github.com/lib/pq"
 	"github.com/spf13/cobra"
@@ -69,20 +68,8 @@ var matViewsCmd = &cobra.Command{
 var locksCmd = &cobra.Command{
 	Use:   "locks",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
-		db, err := sql.Open("postgres", connString)
-
-		defer db.Close()
-
-		if err != nil {
-			panic(err)
-		}
-
-		locks, err := db.Query("SELECT locktype FROM pg_catalog.pg_locks")
-
-		if err != nil {
-			panic(err)
-		}
+		var connectionOptions = util.NewConnectionOptions(hostname, port, username, password, database)
+		var locks = util.GetRowsFromTable(*connectionOptions, "locktype", "pg_catalog.pg_locks")
 
 		util.PrintRows(locks, "Locks")
 
