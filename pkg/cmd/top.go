@@ -17,11 +17,11 @@ var topQueriesCmd = &cobra.Command{
 		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
 		db, err := sql.Open("postgres", connString)
 
-		defer db.Close()
-
 		if err != nil {
 			panic(err)
 		}
+
+		defer db.Close()
 
 		slowQueries, err := db.Query("SELECT * FROM pg_stat_statements JOIN pg_roles r ON r.oid = userid WHERE calls > 100 ORDER BY mean_time DESC")
 
