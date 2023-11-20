@@ -47,20 +47,8 @@ var indexCmd = &cobra.Command{
 var viewsCmd = &cobra.Command{
 	Use:   "views",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
-		db, err := sql.Open("postgres", connString)
-
-		defer db.Close()
-
-		if err != nil {
-			panic(err)
-		}
-
-		views, err := db.Query("SELECT viewname FROM pg_catalog.pg_views")
-
-		if err != nil {
-			panic(err)
-		}
+		var connectionOptions = util.NewConnectionOptions(hostname, port, username, password, database)
+		var views = util.GetRowsFromTable(*connectionOptions, "viewname", "pg_catalog.pg_views")
 
 		util.PrintRows(views, "Views")
 
