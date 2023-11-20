@@ -33,8 +33,8 @@ func buildConnectionString(connectionOptions *ConnectionOptions) string {
 			connectionOptions.database + " sslmode=disable"
 }
 
-func GetRowsFromTable(hostname string, port string, username string, password string, database string, columns string, table string) *sql.Rows  {
-	var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
+func GetRowsFromTable(connectionOptions ConnectionOptions, columns string, table string) *sql.Rows  {
+	var connString = buildConnectionString(&connectionOptions)
 	db, err := sql.Open("postgres", connString)
 
 	defer db.Close()
