@@ -37,11 +37,11 @@ func GetRowsFromTable(connectionOptions ConnectionOptions, columns string, table
 	var connString = buildConnectionString(&connectionOptions)
 	db, err := sql.Open("postgres", connString)
 
-	defer db.Close()
-
 	if err != nil {
 		panic(err)
 	}
+
+	defer db.Close()
 
 	rows, err := db.Query("SELECT" + columns + " FROM " + table)
 
