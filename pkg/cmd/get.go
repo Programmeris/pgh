@@ -25,20 +25,8 @@ var tablesCmd = &cobra.Command{
 var seqCmd = &cobra.Command{
 	Use:   "sequences",
 	Run: func(cmd *cobra.Command, args []string) {
-		var connString = "host=" + hostname + " port=" + port + " user=" + username + " password=" + password + " dbname=" + database + " sslmode=disable"
-		db, err := sql.Open("postgres", connString)
-
-		defer db.Close()
-
-		if err != nil {
-			panic(err)
-		}
-
-		sequences, err := db.Query("SELECT sequencename FROM pg_catalog.pg_sequences")
-
-		if err != nil {
-			panic(err)
-		}
+		var connectionOptions = util.NewConnectionOptions(hostname, port, username, password, database)
+		var sequences = util.GetRowsFromTable(*connectionOptions, "tablename", "pg_catalog.pg_sequences")
 
 		util.PrintRows(sequences, "Sequences")
 
