@@ -6,7 +6,7 @@ Simple utility for interactive with PostgreSQL.
 
 # User guide
 
-Commands:
+Base commands:
 
 ```
 pgh get tables
