@@ -23,11 +23,12 @@ pgh get matviews
 ```
 pgh get sequences
 ```
-
 ```
 pgh get locks
 ```
-
+```
+pgh top queries
+```
 # License
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License.
