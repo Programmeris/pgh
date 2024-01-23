@@ -20,6 +20,13 @@ pgh get indexes
 ```
 pgh get matviews
 ```
+```
+pgh get sequences
+```
+
+```
+pgh get locks
+```
 
 # License
 
