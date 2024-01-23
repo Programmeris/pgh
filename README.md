@@ -8,13 +8,18 @@ Simple utility for interactive with PostgreSQL.
 
 Commands:
 
+```
 pgh get tables
-
+```
+```
 pgh get views
-
+```
+```
 pgh get indexes
-
+```
+```
 pgh get matviews
+```
 
 # License
 
