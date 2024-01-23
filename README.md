@@ -9,25 +9,25 @@ Simple utility for interactive with PostgreSQL.
 Base commands:
 
 ```
-pgh get tables
+pgh get tables --username yourusername --password yourpassword
 ```
 ```
-pgh get views
+pgh get views --username yourusername --password yourpassword
 ```
 ```
-pgh get indexes
+pgh get indexes --username yourusername --password yourpassword
 ```
 ```
-pgh get matviews
+pgh get matviews --username yourusername --password yourpassword
 ```
 ```
-pgh get sequences
+pgh get sequences --username yourusername --password yourpassword
 ```
 ```
-pgh get locks
+pgh get locks --username yourusername --password yourpassword
 ```
 ```
-pgh top queries
+pgh top queries --username yourusername --password yourpassword
 ```
 # License
 
